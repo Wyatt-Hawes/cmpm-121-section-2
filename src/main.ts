@@ -55,7 +55,9 @@ function get_position_property(obj: HTMLElement | null, property_name: string) {
 }
 
 function CheckGameOver() {
-  if (gameOver == false && dino != null && cactus != null && bird != null) {
+    if (gameOver == true){
+        return;
+    }
     //get is dinosaur jumping
     let dinoTop = get_position_property(dino, "top") as number;
 
@@ -68,31 +70,28 @@ function CheckGameOver() {
     //detect cactus collision
     if (dinoTop >= 150 && Math.abs(cactusleft) < 7) {
       //end game
-      console.log("player died!");
-      SetText("Final Score: " + score + "! Click To Play Again!");
-      gameOver = true;
-
-      //reset player
-      RemoveJump();
-
-      //reset cactus
-      RemoveObstacles();
+      end_game();
     }
 
     //detect bird collision
     if (dinoTop <= 55 && Math.abs(birdleft) < 11) {
       //end game
-      console.log("player died!");
-      SetText("Final Score: " + score + "! Click To Play Again!");
-      gameOver = true;
-
-      //reset player
-      RemoveJump();
-
-      //reset cactus
-      RemoveObstacles();
+      end_game();
     }
-  }
+  
+}
+
+function end_game() {
+  //end game
+  console.log("player died!");
+  SetText("Final Score: " + score + "! Click To Play Again!");
+  gameOver = true;
+
+  //reset player
+  RemoveJump();
+
+  //reset cactus
+  RemoveObstacles();
 }
 
 function StartGame() {
